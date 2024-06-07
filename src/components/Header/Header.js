@@ -53,10 +53,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function Header({ setSearchQuery }) {
-
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: "black" }}>
+      <AppBar position="static" sx={{ backgroundColor: "rgb(109, 106, 106)" }}>
         <Toolbar>
           <IconButton
             size="large"

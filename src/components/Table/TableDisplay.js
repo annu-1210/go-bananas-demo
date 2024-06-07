@@ -12,7 +12,7 @@ import axios from "axios";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    color: theme.palette.common.white,
+    color: theme.palette.common.blue,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 16,
@@ -22,7 +22,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
-    color: theme.palette.common.white,
   },
   // hide last border
   "&:last-child td, &:last-child th": {
@@ -36,7 +35,7 @@ function TableDisplay({ searchQuery }) {
 
   const getApiData = async () => {
     try {
-      const res = await axios.get("https://jsonplaceholder.typicode.com/users");
+      const res = await axios.get("https://fakestoreapi.com/products");
       setApiData(res.data);
     } catch (error) {
       setIsError(error.message);
@@ -60,37 +59,46 @@ function TableDisplay({ searchQuery }) {
           marginBottom: "4rem",
           boxShadow:
             "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-          border: "5px solid ",
+          border: "5px solid rgb(255, 253, 253)",
         }}
       >
         <Table
-          sx={{ minWidth: 700, backgroundColor: "rgb(27, 26, 26)" }}
+          sx={{ minWidth: 700, backgroundColor: "rgb(255, 253, 253)" }}
           aria-label="customized table"
         >
           <TableHead>
-            <TableRow>
-              <StyledTableCell sx={{ fontSize: "1.5rem" }}>Id</StyledTableCell>
-              <StyledTableCell sx={{ fontSize: "1.5rem" }}>
-                Name
+            <TableRow sx={{ color: "rgb(109, 106, 106)" }}>
+              <StyledTableCell
+                sx={{ fontSize: "1.5rem", color: "rgb(147, 135, 135)" }}
+              >
+                Id
               </StyledTableCell>
-              <StyledTableCell sx={{ fontSize: "1.5rem" }}>
-                Email
+              <StyledTableCell
+                sx={{ fontSize: "1.5rem", color: "rgb(147, 135, 135)" }}
+              >
+                Title
               </StyledTableCell>
-              <StyledTableCell sx={{ fontSize: "1.5rem" }}>
-                Phone
+              <StyledTableCell
+                sx={{ fontSize: "1.5rem", color: "rgb(147, 135, 135)" }}
+              >
+                Price
               </StyledTableCell>
-              <StyledTableCell sx={{ fontSize: "1.5rem" }}>
-                Website
+              <StyledTableCell
+                sx={{ fontSize: "1.5rem", color: "rgb(147, 135, 135)" }}
+              >
+                Category
               </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {apiData
-              .filter((user) => user.name.toLowerCase().includes(searchQuery))
-              .map((user) => {
-                const { id, name, email, phone, website } = user;
+              .filter((product) =>
+                product.title.toLowerCase().includes(searchQuery)
+              )
+              .map((product) => {
+                const { id, title, price, category } = product;
                 return (
-                  <StyledTableRow key={id}>
+                  <StyledTableRow key={id} className="StyledTableRow">
                     <StyledTableCell
                       component="th"
                       scope="row"
@@ -103,28 +111,21 @@ function TableDisplay({ searchQuery }) {
                       scope="row"
                       sx={{ color: "rgb(147, 135, 135)" }}
                     >
-                      {name}
+                      {title}
+                    </StyledTableCell>
+                    <StyledTableCell
+                      component="th"
+                      scope="row"
+                      sx={{ color: "rgb(15, 116, 25)" }}
+                    >
+                      {price}
                     </StyledTableCell>
                     <StyledTableCell
                       component="th"
                       scope="row"
                       sx={{ color: "rgb(147, 135, 135)" }}
                     >
-                      {email}
-                    </StyledTableCell>
-                    <StyledTableCell
-                      component="th"
-                      scope="row"
-                      sx={{ color: "rgb(147, 135, 135)" }}
-                    >
-                      {phone}
-                    </StyledTableCell>
-                    <StyledTableCell
-                      component="th"
-                      scope="row"
-                      sx={{ color: "rgb(147, 135, 135)" }}
-                    >
-                      {website}
+                      {category}
                     </StyledTableCell>
                   </StyledTableRow>
                 );
